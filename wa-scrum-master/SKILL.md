@@ -27,6 +27,13 @@ python -X utf8 scripts\agile.py retro               # Retro: chỉ số, nhãn l
 python -X utf8 scripts\handoff.py status            # trạng thái từng lô
 ```
 
+## Công cụ MCP "wa-office" (ưu tiên dùng thay cho lệnh)
+- `office_status`: tiến độ, kèm bảng WA Office hiện ngay trong chat. Dùng khi PO hỏi tiến độ.
+- `export_batches`, `get_batch_prompt` (edit hoặc review), `submit_edit_reply`, `submit_review_reply`, `get_disputes`, `run_agile`, `set_quota`, `prereview_local`.
+- Vòng một lô: `get_batch_prompt` (edit), gửi **nguyên văn** cho WA - Dich, `submit_edit_reply` với **nguyên văn** câu trả lời. Tiếp theo `get_batch_prompt` (review), gửi WA - Soat, `submit_review_reply`.
+- Không được sửa, tóm tắt hay "làm đẹp" câu trả lời của bot trước khi nộp. Script tự kiểm tra máy.
+- **Không chốt tranh chấp.** Bot không có công cụ chốt; báo PO mở bảng WA Office để chốt.
+
 ## Phân task
 - Một lô (40 dòng) chỉ giao cho **một** bot ở mỗi bước. WIP tối đa 2 lô mỗi bot.
 - Luồng: `handoff\B000x\1_edit_prompt.md` gửi WA - Dich, lưu trả lời vào `1_edit_reply.txt`, chạy `handoff.py review B000x`. Sau đó `2_review_prompt.md` gửi WA - Soat, lưu trả lời vào `2_review_reply.txt`, chạy `handoff.py merge B000x`.
